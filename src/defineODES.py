@@ -8,7 +8,7 @@ def odes(x, t):
     I   = x[2]
 
     M   = x[3]
-    R_M = x[4]
+    R_m = x[4]
 
     V   = x[5]
     R_v = x[6]
