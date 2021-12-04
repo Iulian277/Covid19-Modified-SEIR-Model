@@ -1,6 +1,7 @@
 import random
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 from imports import *
 
@@ -10,6 +11,7 @@ import readCSV as readCSV
 import testCumulativeDeaths as testCumulativeDeaths
 import testDailyDeaths as testDailyDeaths
 import createDataset as createDataset
+import modelNN as modelNN
 
 
 def main():
@@ -25,7 +27,7 @@ def main():
     # print("------------------------------")
     # print(parameters.theta["R0"])
 
-    # theta =
+    # Theta
     createDataset.create()
     [theta, predictedDailyDeaths, predictedCumulativeDeaths] = createDataset.getThetaAndPredictedDailyDeaths()
 
@@ -58,8 +60,21 @@ def main():
     #
     # print(bestIdx)
 
+    # print(realDailyDeaths)
+    # for i in range(5):
+    #     print(predictedDailyDeaths[i])
+
+    realDailyDeathsForModel = []
+    for i in range(len(predictedDailyDeaths)):
+        realDailyDeathsForModel.append(realDailyDeaths)
 
 
+    predictedDailyDeaths = np.array(predictedDailyDeaths)
+    realDailyDeathsForModel = np.array(realDailyDeathsForModel)
+
+    model = modelNN.createModel(realDailyDeathsForModel, predictedDailyDeaths, theta)
+    model.fit(x=realDailyDeathsForModel, y=predictedDailyDeaths, epochs=5, validation_split=0.2)
+    model.summary()
 
 if __name__ == "__main__":
     main()
