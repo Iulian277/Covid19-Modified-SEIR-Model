@@ -25,8 +25,12 @@ R_F0 = 33785
 
 #
 theta = []  # Tuple of variable parameters (11)
-predicted_cumulative_deaths = []
 predicted_daily_deaths = []
+
+predicted_cumulative_deaths = []
+predicted_cumulative_susceptible = []
+predicted_cumulative_exposed = []
+predicted_cumulative_infectious = []
 
 # Last randomly generated theta
 lastTheta = {
@@ -136,6 +140,15 @@ def create():
         days = np.linspace(1, 30, 30)
         x = odeint(odes, [S0, E0, I0, M0, R_M0, V0, R_V0, H0, R_H0, F0, R_F0], days)
 
+        S = x[:,0]
+        predicted_cumulative_susceptible.append(S)
+
+        E = x[:,1]
+        predicted_cumulative_exposed.append(E)
+
+        I = x[:,2]
+        predicted_cumulative_infectious.append(I)
+
         R_F = x[:,10]
         predicted_cumulative_deaths.append(R_F)
 
@@ -148,4 +161,5 @@ def create():
 
 
 def getThetaAndPredictedDailyDeaths():
-    return [theta, predicted_daily_deaths, predicted_cumulative_deaths]
+    return [theta, predicted_daily_deaths, predicted_cumulative_deaths,
+            predicted_cumulative_susceptible, predicted_cumulative_exposed, predicted_cumulative_infectious]

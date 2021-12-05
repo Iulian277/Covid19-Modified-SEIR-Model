@@ -22,7 +22,8 @@ def main():
 
     # Theta
     createDataset.create()
-    [theta, predictedDailyDeaths, predictedCumulativeDeaths] = createDataset.getThetaAndPredictedDailyDeaths()
+    [theta, predictedDailyDeaths, predictedCumulativeDeaths,
+        predictedCumulativeSusceptible, predictedCumulativeExposed, predictedCumulativeInfectious] = createDataset.getThetaAndPredictedDailyDeaths()
 
     # Convert to numpy arrays
     realCumulativeDeaths = np.array(realCumulativeDeaths)
@@ -55,7 +56,6 @@ def main():
     endTime = time.time()
     print("Elapsed time: " + str(round(endTime - startTime, 2)) + " seconds")
     print("------------------------------")
-
 
 
 if __name__ == "__main__":
