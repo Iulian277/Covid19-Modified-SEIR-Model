@@ -4,7 +4,7 @@ from scipy.integrate import odeint
 from imports import *
 import parameters as parameters
 
-NUMBER_OF_SAMPLES = 100
+NUMBER_OF_SAMPLES = 1000
 
 # Initial conditions
 S0 = parameters.N - parameters.I0
@@ -22,7 +22,6 @@ R_H0 = 100000
 
 F0 = 0
 R_F0 = 33785
-
 
 #
 theta = []  # Tuple of variable parameters (11)
@@ -47,6 +46,7 @@ lastTheta = {
     "T_h": 0,
     "T_f": 0,
     }
+
 
 def odes(x, t):
     #
@@ -140,13 +140,12 @@ def create():
         predicted_cumulative_deaths.append(R_F)
 
         # Until now, we have generated cumulative deaths
+        # Create daily deaths
         curr_daily_vector = []
         for j in range(1, len(predicted_cumulative_deaths[i])):
             curr_daily_vector.append(predicted_cumulative_deaths[i][j] - predicted_cumulative_deaths[i][j-1])
         predicted_daily_deaths.append(curr_daily_vector)
 
 
-
 def getThetaAndPredictedDailyDeaths():
     return [theta, predicted_daily_deaths, predicted_cumulative_deaths]
-
