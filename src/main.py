@@ -29,6 +29,10 @@ def main():
     predictedCumulativeDeaths = np.array(predictedCumulativeDeaths)
 
     # Compute the best set of parameters using the least_squares_error
+    # This is not the best approach, becasuse I am considering each parameter to have
+    # the same importance (same weight) applied to the model of differential equations
+
+    # A better approach is to make a grid_search or a NN model to guess the right parameters
     bestIdx = -1
     smallestLeastSquaresErrors = float('inf')
     for i in range(createDataset.NUMBER_OF_SAMPLES):
